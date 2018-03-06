@@ -662,6 +662,7 @@ function recordProduct( product, orderId ) {
 			name: product.product_slug,
 			price: product.cost,
 			currency: product.currency,
+			quantity: 1,
 		} );
 
 		// Google AdWords
