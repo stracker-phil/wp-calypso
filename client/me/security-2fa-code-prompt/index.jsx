@@ -119,7 +119,7 @@ class Security2faCodePrompt extends React.Component {
 	};
 
 	onBeginCodeValidation = () => {
-		var args = {
+		const args = {
 			code: this.state.verificationCode,
 		};
 
@@ -149,26 +149,22 @@ class Security2faCodePrompt extends React.Component {
 	};
 
 	getSubmitButtonLabel = () => {
-		var label;
-
 		switch ( this.props.action ) {
 			case 'disable-two-step':
-				label = this.state.submittingCode
+				return this.state.submittingCode
 					? this.props.translate( 'Disabling Two-Step…' )
 					: this.props.translate( 'Disable Two-Step' );
-				break;
+
 			case 'enable-two-step':
-				label = this.state.submittingCode
+				return this.state.submittingCode
 					? this.props.translate( 'Enabling Two-Step…' )
 					: this.props.translate( 'Enable Two-Step' );
-				break;
+
 			default:
-				label = this.state.submittingCode
+				return this.state.submittingCode
 					? this.props.translate( 'Submitting…' )
 					: this.props.translate( 'Submit' );
 		}
-
-		return label;
 	};
 
 	clearLastError = () => {
@@ -194,7 +190,7 @@ class Security2faCodePrompt extends React.Component {
 	};
 
 	render() {
-		var codePlaceholder = twoStepAuthorization.isTwoStepSMSEnabled()
+		const codePlaceholder = twoStepAuthorization.isTwoStepSMSEnabled()
 			? constants.sevenDigit2faPlaceholder
 			: constants.sixDigit2faPlaceholder;
 
@@ -217,16 +213,19 @@ class Security2faCodePrompt extends React.Component {
 						value={ this.state.verificationCode }
 						onChange={ this.handleChange }
 					/>
+
 					{ this.state.codeRequestPerformed ? (
 						<FormSettingExplanation>
 							{ this.props.translate(
-								'A code has been sent to your device via SMS.  ' +
-									'You may request another code after one minute.'
+								'A code has been sent to your device via SMS. ' +
+								'You may request another code after one minute.'
 							) }
 						</FormSettingExplanation>
 					) : null }
+
 					{ this.possiblyRenderError() }
 				</FormFieldset>
+
 				<FormButtonsBar className="security-2fa-code-prompt__buttons-bar">
 					<FormButton
 						className="security-2fa-code-prompt__verify-code"
