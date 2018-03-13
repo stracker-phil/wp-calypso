@@ -69,8 +69,9 @@ export class Auth extends Component {
 		this.setState( { showInstructions: isShowing } );
 	};
 
-	handleChange = e => {
-		const { name, value } = e.currentTarget;
+	handleChange = event => {
+		const { name, value } = event.currentTarget;
+
 		this.setState( { [ name ]: value } );
 	};
 
@@ -135,7 +136,7 @@ export class Auth extends Component {
 								<FormFieldset>
 									<FormTextInput
 										name="auth_code"
-										type="number"
+										type="tel"
 										ref={ this.focusInput }
 										disabled={ inProgress }
 										placeholder={ translate( 'Verification code' ) }

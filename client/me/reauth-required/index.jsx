@@ -14,7 +14,6 @@ const debug = debugFactory( 'calypso:me:reauth-required' );
 /**
  * Internal Dependencies
  */
-import constants from 'me/constants';
 import Dialog from 'components/dialog';
 import FormButton from 'components/forms/form-button';
 import FormButtonsBar from 'components/forms/form-buttons-bar';
@@ -22,7 +21,7 @@ import FormCheckbox from 'components/forms/form-checkbox';
 import FormFieldset from 'components/forms/form-fieldset';
 import FormInputValidation from 'components/forms/form-input-validation';
 import FormLabel from 'components/forms/form-label';
-import FormTelInput from 'components/forms/form-tel-input';
+import FormVerificationCodeInput from 'components/forms/form-verification-code-input';
 import Notice from 'components/notice';
 /* eslint-disable no-restricted-imports */
 import observe from 'lib/mixins/data-observe';
@@ -181,9 +180,7 @@ const ReauthRequired = createReactClass( {
 	},
 
 	render: function() {
-		const codePlaceholder = this.props.twoStepAuthorization.isTwoStepSMSEnabled()
-			? constants.sevenDigit2faPlaceholder
-			: constants.sixDigit2faPlaceholder;
+		const method = this.props.twoStepAuthorization.isTwoStepSMSEnabled() ? 'sms' : 'app';
 
 		return (
 			<Dialog
@@ -207,13 +204,16 @@ const ReauthRequired = createReactClass( {
 
 				<form onSubmit={ this.submitForm }>
 					<FormFieldset>
-						<FormLabel htmlFor="code">{ this.props.translate( 'Verification Code' ) }</FormLabel>
-						<FormTelInput
+						<FormLabel htmlFor="code">
+							{ this.props.translate( 'Verification Code' ) }
+						</FormLabel>
+
+						<FormVerificationCodeInput
 							autoFocus={ true }
 							id="code"
 							isError={ this.props.twoStepAuthorization.codeValidationFailed() }
 							name="code"
-							placeholder={ codePlaceholder }
+							method={ method }
 							onFocus={ this.getFocusHandler( 'Reauth Required Verification Code Field' ) }
 							value={ this.state.code }
 							onChange={ this.handleChange }

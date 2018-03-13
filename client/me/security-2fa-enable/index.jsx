@@ -17,12 +17,11 @@ const debug = debugFactory( 'calypso:me:security:2fa-enable' );
  * Internal dependencies
  */
 import analytics from 'lib/analytics';
-import constants from 'me/constants';
 import FormButton from 'components/forms/form-button';
 import FormButtonsBar from 'components/forms/form-buttons-bar';
 import FormLabel from 'components/forms/form-label';
 import FormSettingExplanation from 'components/forms/form-setting-explanation';
-import FormTelInput from 'components/forms/form-tel-input';
+import FormVerificationCodeInput from 'components/forms/form-verification-code-input';
 import Notice from 'components/notice';
 import Security2faProgress from 'me/security-2fa-progress';
 import twoStepAuthorization from 'lib/two-step-authorization';
@@ -329,16 +328,12 @@ class Security2faEnable extends React.Component {
 		return (
 			<div className="security-2fa-enable__next">
 				{ this.renderInputHelp() }
-				<FormTelInput
-					autoComplete="off"
+
+				<FormVerificationCodeInput
 					autoFocus
 					disabled={ this.state.submittingForm }
 					name="verificationCode"
-					placeholder={
-						'sms' === this.state.method
-							? constants.sevenDigit2faPlaceholder
-							: constants.sixDigit2faPlaceholder
-					}
+					method={ this.state.method }
 					onFocus={ function() {
 						analytics.ga.recordEvent( 'Me', 'Focused On 2fa Enable Verification Code Input' );
 					} }

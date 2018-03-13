@@ -4,7 +4,6 @@
  * External dependencies
  */
 
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { defer } from 'lodash';
 import PropTypes from 'prop-types';
@@ -18,7 +17,7 @@ import FormButton from 'components/forms/form-button';
 import FormFieldset from 'components/forms/form-fieldset';
 import FormInputValidation from 'components/forms/form-input-validation';
 import FormLabel from 'components/forms/form-label';
-import FormTextInput from 'components/forms/form-text-input';
+import FormVerificationCodeInput from 'components/forms/form-verification-code-input';
 import { localize } from 'i18n-calypso';
 import { getTwoFactorAuthRequestError } from 'state/login/selectors';
 import { recordTracksEventWithClientId as recordTracksEvent } from 'state/analytics/actions';
@@ -145,19 +144,15 @@ class VerificationCodeForm extends Component {
 					<FormFieldset>
 						<FormLabel htmlFor="twoStepCode">{ labelText }</FormLabel>
 
-						<FormTextInput
-							autoComplete="off"
+						<FormVerificationCodeInput
 							autoFocus
 							value={ this.state.twoStepCode }
 							onChange={ this.onChangeField }
-							className={ classNames( {
-								'is-error': requestError && requestError.field === 'twoStepCode',
-							} ) }
+							isError={ requestError && requestError.field === 'twoStepCode' }
 							name="twoStepCode"
-							pattern="[0-9 ]*"
+							method={ twoFactorAuthType }
 							ref={ this.saveRef }
 							disabled={ this.state.isDisabled }
-							type="tel"
 						/>
 
 						{ requestError &&

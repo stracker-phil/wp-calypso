@@ -15,13 +15,12 @@ const debug = debugFactory( 'calypso:me:security:2fa-code-prompt' );
  * Internal dependencies
  */
 import analytics from 'lib/analytics';
-import constants from 'me/constants';
 import FormButton from 'components/forms/form-button';
 import FormButtonsBar from 'components/forms/form-buttons-bar';
 import FormFieldset from 'components/forms/form-fieldset';
 import FormLabel from 'components/forms/form-label';
 import FormSettingExplanation from 'components/forms/form-setting-explanation';
-import FormTelInput from 'components/forms/form-tel-input';
+import FormVerificationCodeInput from 'components/forms/form-verification-code-input';
 import Notice from 'components/notice';
 import twoStepAuthorization from 'lib/two-step-authorization';
 
@@ -190,9 +189,7 @@ class Security2faCodePrompt extends React.Component {
 	};
 
 	render() {
-		const codePlaceholder = twoStepAuthorization.isTwoStepSMSEnabled()
-			? constants.sevenDigit2faPlaceholder
-			: constants.sixDigit2faPlaceholder;
+		const method = twoStepAuthorization.isTwoStepSMSEnabled() ? 'sms' : 'app';
 
 		return (
 			<form className="security-2fa-code-prompt" onSubmit={ this.onSubmit }>
@@ -200,13 +197,13 @@ class Security2faCodePrompt extends React.Component {
 					<FormLabel htmlFor="verification-code">
 						{ this.props.translate( 'Verification Code' ) }
 					</FormLabel>
-					<FormTelInput
+
+					<FormVerificationCodeInput
 						autoFocus
 						className="security-2fa-code-prompt__verification-code"
 						disabled={ this.state.submittingForm }
+						method={ method }
 						name="verificationCode"
-						placeholder={ codePlaceholder }
-						autoComplete="off"
 						onFocus={ function() {
 							analytics.ga.recordEvent( 'Me', 'Focused On 2fa Disable Code Verification Input' );
 						} }

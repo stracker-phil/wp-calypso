@@ -4,6 +4,7 @@
  * External dependencies
  */
 import debugFactory from 'debug';
+import { replace } from 'lodash';
 
 const debug = debugFactory( 'calypso:two-step-authorization' );
 
@@ -72,7 +73,10 @@ TwoStepAuthorization.prototype.fetch = function( callback ) {
  */
 TwoStepAuthorization.prototype.validateCode = function( args, callback ) {
 	wpcom.me().validateTwoStepCode(
-		args,
+		{
+			...args,
+			code: replace( args.code, /\s/g, '' ),
+		},
 		function( error, data ) {
 			if ( ! error && data.success ) {
 				// If the validation was successful AND reauth was required, fetch
@@ -174,7 +178,7 @@ TwoStepAuthorization.prototype.backupCodes = function( callback ) {
  */
 TwoStepAuthorization.prototype.validateBackupCode = function( code, callback ) {
 	const args = {
-		code: code,
+		code: replace( code, /\s/g, '' ),
 		action: 'create-backup-receipt',
 	};
 
