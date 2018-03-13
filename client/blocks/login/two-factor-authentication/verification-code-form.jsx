@@ -4,21 +4,21 @@
  * External dependencies
  */
 
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { defer } from 'lodash';
-import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 /**
  * Internal dependencies
  */
-import FormButton from 'components/forms/form-button';
-import FormTextInput from 'components/forms/form-text-input';
-import FormFieldset from 'components/forms/form-fieldset';
-import FormLabel from 'components/forms/form-label';
-import FormInputValidation from 'components/forms/form-input-validation';
 import Card from 'components/card';
+import FormButton from 'components/forms/form-button';
+import FormFieldset from 'components/forms/form-fieldset';
+import FormInputValidation from 'components/forms/form-input-validation';
+import FormLabel from 'components/forms/form-label';
+import FormTextInput from 'components/forms/form-text-input';
 import { localize } from 'i18n-calypso';
 import { getTwoFactorAuthRequestError } from 'state/login/selectors';
 import { recordTracksEventWithClientId as recordTracksEvent } from 'state/analytics/actions';

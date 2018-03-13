@@ -3,32 +3,32 @@
 /**
  * External dependencies
  */
-
-import React from 'react';
-import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
-import { localize } from 'i18n-calypso';
+import createReactClass from 'create-react-class';
 import debugFactory from 'debug';
+import { localize } from 'i18n-calypso';
+import React from 'react';
+
 const debug = debugFactory( 'calypso:me:reauth-required' );
 
 /**
  * Internal Dependencies
  */
+import constants from 'me/constants';
 import Dialog from 'components/dialog';
-import FormFieldset from 'components/forms/form-fieldset';
-import FormLabel from 'components/forms/form-label';
-import FormTelInput from 'components/forms/form-tel-input';
-import FormCheckbox from 'components/forms/form-checkbox';
 import FormButton from 'components/forms/form-button';
 import FormButtonsBar from 'components/forms/form-buttons-bar';
+import FormCheckbox from 'components/forms/form-checkbox';
+import FormFieldset from 'components/forms/form-fieldset';
 import FormInputValidation from 'components/forms/form-input-validation';
+import FormLabel from 'components/forms/form-label';
+import FormTelInput from 'components/forms/form-tel-input';
+import Notice from 'components/notice';
 /* eslint-disable no-restricted-imports */
 import observe from 'lib/mixins/data-observe';
 /* eslint-enable no-restricted-imports */
-import userUtilities from 'lib/user/utils';
-import constants from 'me/constants';
-import Notice from 'components/notice';
-import { recordGoogleEvent } from 'state/analytics/actions';
+import { recordGoogleEvent } from 'state/analytics/actions'
+import userUtilities from 'lib/user/utils';;
 
 const ReauthRequired = createReactClass( {
 	displayName: 'ReauthRequired',

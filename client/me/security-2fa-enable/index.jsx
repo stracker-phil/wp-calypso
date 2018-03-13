@@ -4,27 +4,28 @@
  * External dependencies
  */
 
-import PropTypes from 'prop-types';
-import { localize } from 'i18n-calypso';
-import React from 'react';
-import debugFactory from 'debug';
-const debug = debugFactory( 'calypso:me:security:2fa-enable' );
-import QRCode from 'qrcode.react';
 import classNames from 'classnames';
+import debugFactory from 'debug';
+import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import QRCode from 'qrcode.react';
+import React from 'react';
+
+const debug = debugFactory( 'calypso:me:security:2fa-enable' );
 
 /**
  * Internal dependencies
  */
+import analytics from 'lib/analytics';
+import constants from 'me/constants';
 import FormButton from 'components/forms/form-button';
+import FormButtonsBar from 'components/forms/form-buttons-bar';
 import FormLabel from 'components/forms/form-label';
 import FormSettingExplanation from 'components/forms/form-setting-explanation';
 import FormTelInput from 'components/forms/form-tel-input';
+import Notice from 'components/notice';
 import Security2faProgress from 'me/security-2fa-progress';
 import twoStepAuthorization from 'lib/two-step-authorization';
-import analytics from 'lib/analytics';
-import constants from 'me/constants';
-import FormButtonsBar from 'components/forms/form-buttons-bar';
-import Notice from 'components/notice';
 
 class Security2faEnable extends React.Component {
 	static displayName = 'Security2faEnable';
