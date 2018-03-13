@@ -3,7 +3,6 @@
 /**
  * External dependencies
  */
-
 import debugFactory from 'debug';
 const debug = debugFactory( 'calypso:two-step-authorization' );
 
@@ -31,8 +30,8 @@ function TwoStepAuthorization() {
 
 	this.data = null;
 	this.initialized = false;
-	this.indvalidCode = false;
 	this.smsResendThrottled = false;
+
 	this.bumpMCStat = function( eventAction ) {
 		analytics.mc.bumpStat( '2fa', eventAction );
 		analytics.tracks.recordEvent( 'calypso_login_twostep_authorize', {
