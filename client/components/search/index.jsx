@@ -46,6 +46,7 @@ class Search extends Component {
 		pinned: PropTypes.bool,
 		delaySearch: PropTypes.bool,
 		delayTimeout: PropTypes.number,
+		describedBy: PropTypes.string,
 		onSearch: PropTypes.func.isRequired,
 		onSearchChange: PropTypes.func,
 		onSearchOpen: PropTypes.func,
@@ -75,6 +76,7 @@ class Search extends Component {
 		delayTimeout: SEARCH_DEBOUNCE_MS,
 		autoFocus: false,
 		disabled: false,
+		describedBy: null,
 		onSearchChange: noop,
 		onSearchOpen: noop,
 		onSearchClose: noop,
@@ -351,9 +353,12 @@ class Search extends Component {
 				</div>
 				<div className={ fadeDivClass }>
 					<input
-						autoFocus={ this.props.autoFocus } // eslint-disable-line jsx-a11y/no-autofocus
 						type="search"
 						id={ 'search-component-' + this.state.instanceId }
+						autoFocus={ this.props.autoFocus } // eslint-disable-line jsx-a11y/no-autofocus
+						aria-describedBy={ this.props.describedBy }
+						aria-label={ inputLabel ? inputLabel : i18n.translate( 'Search' ) }
+						aria-hidden={ ! isOpenUnpinnedOrQueried }
 						className={ inputClass }
 						placeholder={ placeholder }
 						role="search"
@@ -369,8 +374,6 @@ class Search extends Component {
 						onFocus={ this.onFocus }
 						onBlur={ this.onBlur }
 						disabled={ this.props.disabled }
-						aria-label={ inputLabel ? inputLabel : i18n.translate( 'Search' ) }
-						aria-hidden={ ! isOpenUnpinnedOrQueried }
 						autoCapitalize="none"
 						dir={ this.props.dir }
 						maxLength={ this.props.maxLength }
