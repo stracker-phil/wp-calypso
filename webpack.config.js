@@ -262,7 +262,7 @@ if ( shouldMinify ) {
 			uglifyOptions: {
 				compress: {
 					/**
-					 * Produces inconsisten results
+					 * Produces inconsistent results
 					 * Enable when the following is resolved:
 					 * https://github.com/mishoo/UglifyJS2/issues/3010
 					 */
