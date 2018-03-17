@@ -258,8 +258,18 @@ if ( shouldMinify ) {
 		new UglifyJsPlugin( {
 			cache: 'docker' !== process.env.CONTAINER,
 			parallel: true,
-			uglifyOptions: { ecma: 5 },
 			sourceMap: Boolean( process.env.SOURCEMAP ),
+			uglifyOptions: {
+				compress: {
+					/**
+					 * Produces inconsisten results
+					 * Enable when the following is resolved:
+					 * https://github.com/mishoo/UglifyJS2/issues/3010
+					 */
+					conditionals: false,
+				},
+				ecma: 5,
+			},
 		} )
 	);
 }
