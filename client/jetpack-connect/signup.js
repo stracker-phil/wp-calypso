@@ -24,7 +24,6 @@ import { localize } from 'i18n-calypso';
  * Internal dependencies
  */
 import AuthFormHeader from './auth-form-header';
-import config from 'config';
 import HelpButton from './help-button';
 import LocaleSuggestions from 'components/locale-suggestions';
 import LoggedOutFormLinkItem from 'components/logged-out-form/link-item';
@@ -36,6 +35,7 @@ import { addQueryArgs } from 'lib/route';
 import { authQueryPropTypes } from './utils';
 import { createAccount as createAccountAction } from 'state/jetpack-connect/actions';
 import { getAuthorizationData } from 'state/jetpack-connect/selectors';
+import { isEnabled } from 'config';
 import { login } from 'lib/paths';
 import { recordTracksEvent as recordTracksEventAction } from 'state/analytics/actions';
 
@@ -119,7 +119,7 @@ export class JetpackSignup extends Component {
 					href={ login( {
 						emailAddress,
 						isJetpack: true,
-						isNative: config.isEnabled( 'login/native-login-links' ),
+						isNative: isEnabled( 'login/native-login-links' ),
 						locale: this.props.locale,
 						redirectTo: window.location.href,
 					} ) }
@@ -143,6 +143,7 @@ export class JetpackSignup extends Component {
 						disabled={ isAuthorizing }
 						email={ this.props.authQuery.userEmail }
 						footerLink={ this.renderFooterLink() }
+						isSocialSignupEnabled={ isEnabled( 'signup/social' ) }
 						locale={ this.props.locale }
 						redirectToAfterLoginUrl={ addQueryArgs(
 							{ auth_approved: true },
