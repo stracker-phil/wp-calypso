@@ -202,7 +202,7 @@ export function createAccount( userData, { service, access_token, id_token } = {
 
 		dispatch( {
 			type: JETPACK_CONNECT_CREATE_ACCOUNT,
-			userData: userData,
+			userData,
 		} );
 
 		if ( service ) {
@@ -222,18 +222,17 @@ export function createAccount( userData, { service, access_token, id_token } = {
 					signup_flow_name: 'account',
 					// signup_flow_name: 'jetpack-connect',
 				},
-				( error, response ) => {
+				( error, response = {} ) => {
 					debug( 'Social error %o response %o', error, response );
 					if ( error ) {
 						dispatch(
-							recordTracksEvent( 'calypso_jpc_create_account_error', {
-								error_code: error.code,
+							recordTracksEvent( 'calypso_jpc_social_createaccount_error', {
 								error: JSON.stringify( error ),
-								social: true,
+								error_code: error.code,
 							} )
 						);
 					} else {
-						dispatch( recordTracksEvent( 'calypso_jpc_create_account_success', { social: true } ) );
+						dispatch( recordTracksEvent( 'calypso_jpc_social_createaccount_success' ) );
 					}
 					dispatch( {
 						type: JETPACK_CONNECT_CREATE_ACCOUNT_RECEIVE,
@@ -248,8 +247,8 @@ export function createAccount( userData, { service, access_token, id_token } = {
 				if ( error ) {
 					dispatch(
 						recordTracksEvent( 'calypso_jpc_create_account_error', {
-							error_code: error.code,
 							error: JSON.stringify( error ),
+							error_code: error.code,
 						} )
 					);
 				} else {
@@ -257,9 +256,9 @@ export function createAccount( userData, { service, access_token, id_token } = {
 				}
 				dispatch( {
 					type: JETPACK_CONNECT_CREATE_ACCOUNT_RECEIVE,
-					userData: userData,
 					data,
 					error,
+					userData,
 				} );
 			} );
 		}
