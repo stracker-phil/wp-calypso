@@ -79,6 +79,21 @@ export class JetpackSignup extends Component {
 		this.props.createAccount( userData );
 	};
 
+	/**
+	 * Handle Social service authentication flow result (OAuth2 or OpenID Connect)
+	 *
+	 * @see client/signup/steps/user/index.jsx
+	 *
+	 * @param {String} service      The name of the social service
+	 * @param {String} access_token An OAuth2 acccess token
+	 * @param {String} id_token     (Optional) a JWT id_token which contains the signed user info
+	 *                              So our server doesn't have to request the user profile on its end.
+	 */
+	handleSocialResponse = ( service, access_token, id_token = null ) => {
+		debug( 'submiting new social account' );
+		this.props.createAccount( null, { service, access_token, id_token } );
+	};
+
 	handleClickHelp = () => {
 		this.props.recordTracksEvent( 'calypso_jpc_help_link_click' );
 	};
@@ -143,6 +158,7 @@ export class JetpackSignup extends Component {
 						disabled={ isAuthorizing }
 						email={ this.props.authQuery.userEmail }
 						footerLink={ this.renderFooterLink() }
+						handleSocialResponse={ this.handleSocialResponse }
 						isSocialSignupEnabled={ isEnabled( 'signup/social' ) }
 						locale={ this.props.locale }
 						redirectToAfterLoginUrl={ addQueryArgs(
