@@ -135,6 +135,7 @@ export class Auth extends Component {
 							{ requires2fa && (
 								<FormFieldset>
 									<FormTextInput
+										autoComplete="off"
 										name="auth_code"
 										type="tel"
 										ref={ this.focusInput }
