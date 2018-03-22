@@ -223,7 +223,7 @@ export function createAccount( userData, { service, access_token, id_token } = {
 					// signup_flow_name: 'jetpack-connect',
 				},
 				( error, response = {} ) => {
-					debug( 'Social error %o response %o', error, response );
+					debug( 'Social account response: error [%o] response [%o]', error, response );
 					if ( error ) {
 						dispatch(
 							recordTracksEvent( 'calypso_jpc_social_createaccount_error', {
