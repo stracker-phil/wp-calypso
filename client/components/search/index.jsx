@@ -104,6 +104,7 @@ class Search extends Component {
 	componentWillMount() {
 		this.setState( {
 			instanceId: ++Search.instances,
+			hasFocus: this.props.autoFocus,
 		} );
 
 		this.closeListener = keyListener.bind( this, 'closeSearch' );
